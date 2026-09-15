@@ -1,0 +1,12 @@
+{
+  "name": "gardena-mower-card",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Home Assistant dashboard card for Gardena Mower BLE",
+  "author": "AlirezaT",
+  "license": "MIT",
+  "scripts": {
+    "build": "python3 scripts/build.py",
+    "check": "python3 scripts/build.py --check"
+  }
+}

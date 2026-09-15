@@ -1,0 +1,45 @@
+/* Transparent, centred status presentation. No lawn or scenery. */
+.garden-scene{height:260px;position:relative;margin:16px 0 12px;isolation:isolate;background:none;overflow:hidden}
+.mower-anchor{position:absolute;left:50%;top:52%;width:132px;transform:translate(-50%,-50%)}
+.mower-heading,.rover{width:100%;position:relative}.mower-photo{width:100%;height:auto;display:block;filter:blur(var(--mower-image-softness,.6px)) drop-shadow(0 2px 2px #0003) drop-shadow(0 10px 12px #0004)}
+.rover ha-icon{--mdc-icon-size:110px;color:var(--secondary-text-color)}
+.parked .mower-anchor,.charging .mower-anchor{width:min(76%,270px);top:52%}
+.parked.with-garage .mower-anchor,.charging.with-garage .mower-anchor{width:min(76%,260px)}
+.mowing .rover{animation:mower-rock 6s ease-in-out infinite}
+.returning .mower-heading{transform:rotate(180deg)}
+.returning .rover{animation:mower-rock 6s ease-in-out infinite}
+.spot .mower-anchor{width:94px;left:calc(50% - 47px);top:50%}
+.spot .rover{transform-origin:100% 50%;animation:spot-pivot 12s linear infinite}
+.status-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:transparent;color:#20abab;pointer-events:none}
+.status-overlay svg,.status-overlay img,.icon-player{display:block;width:34px;height:34px;object-fit:contain}.status-overlay.bolt{color:#eeb33a}.charging .status-overlay{top:50%}
+.scene-caption{position:absolute;bottom:0;left:0;right:0;text-align:center;font-size:12px;color:var(--secondary-text-color)}
+.blade{transform-origin:12px 12px}.blade-a{animation:scissor-a 1.4s ease-in-out infinite}.blade-b{animation:scissor-b 1.4s ease-in-out infinite}
+.pause-bar{animation:pause-emphasis 2.6s ease-in-out infinite}.bolt-path{animation:bolt-energy 1.7s ease-in-out infinite}
+.unavailable .mower-photo{opacity:.45;filter:grayscale(1) blur(var(--mower-image-softness,.6px)) drop-shadow(0 2px 2px #0003) drop-shadow(0 10px 12px #0004)}
+@keyframes mower-rock{0%,100%{transform:translateY(7px) rotate(0deg)}20%{transform:translateY(-7px) rotate(-22deg)}40%{transform:translateY(5px) rotate(-35deg)}60%{transform:translateY(-7px) rotate(22deg)}80%{transform:translateY(5px) rotate(35deg)}}
+@keyframes spot-pivot{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes scissor-a{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(9deg)}}
+@keyframes scissor-b{0%,100%{transform:rotate(12deg)}50%{transform:rotate(-9deg)}}
+@keyframes pause-emphasis{0%,100%{opacity:1}50%{opacity:.45}}
+@keyframes bolt-energy{0%,100%{opacity:.5;transform:scale(.88);transform-origin:center}50%{opacity:1;transform:scale(1.06);transform-origin:center}}
+.no-motion *{animation:none!important}
+@media(prefers-reduced-motion:reduce){.garden-scene *{animation:none!important}}
+@media(max-width:340px){.garden-scene{height:240px}.mower-anchor{width:100px}.spot .mower-anchor{width:86px;left:calc(50% - 43px)}}
+
+/* Error activity is stationary; only the status icon animates. */
+.status-overlay.error{color:var(--error-color,#ef6565);filter:drop-shadow(0 0 3px #0004)}
+.error-ring{stroke-dasharray:100;animation:error-ring-draw 3.2s ease-in-out infinite}
+.error-cross{transform-origin:12px 12px;animation:error-cross-show 3.2s ease-in-out infinite}
+@keyframes error-ring-draw{0%{stroke-dashoffset:100;opacity:.45}28%,86%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:.45}}
+@keyframes error-cross-show{0%,18%{opacity:0;transform:scale(.75)}36%,86%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.9)}}
+
+/* Subpixel image smoothing applies to every state; icons and text stay crisp. */
+.mower-photo{image-rendering:auto}
+
+[hidden]{display:none!important}
+.card-tabs{display:flex;gap:4px;margin:16px 0;border-bottom:1px solid var(--divider-color);padding-bottom:8px}.card-tabs button{flex:1;min-width:0;padding:9px 3px;background:none;color:var(--secondary-text-color);border-radius:9px;font-size:12px}.card-tabs .selected{color:var(--primary-text-color);background:var(--secondary-background-color);font-weight:600}
+.page-panel h3{font-size:16px;margin:18px 0 10px}.hint,.park-status{font-size:12px;line-height:1.5;color:var(--secondary-text-color)}.park-status{margin:15px 0 8px}.park-controls{display:grid;grid-template-columns:1fr;gap:7px}.park-controls .control{justify-content:flex-start;padding:11px;font-size:12px}
+.setting-row{display:flex;align-items:center;gap:12px;width:100%;background:none;border-bottom:1px solid var(--divider-color);padding:13px 0;text-align:left}.setting-row>span:first-of-type{flex:1;min-width:0;font-size:13px}.setting-row strong{display:block;font-weight:400;font-size:12px;color:var(--secondary-text-color);overflow-wrap:anywhere;margin-top:4px}.setting-row ha-icon{--mdc-icon-size:21px;color:var(--secondary-text-color)}.row-arrow{color:var(--secondary-text-color);font-size:22px}
+.wide-button{display:block;width:100%;background:var(--secondary-background-color);padding:12px;border-radius:12px;margin-top:16px}.notice{font-size:12px;line-height:1.5;padding:12px;border-radius:12px;background:#e66f261a}.schedule-list{padding-left:22px;font-size:13px;line-height:1.6}.schedule-list li{padding:9px 0}.settings-group summary{padding:15px 0}.credits,.credits a{font-size:10px;color:var(--secondary-text-color)}
+
+.inline-setting{cursor:default;display:flex;flex-wrap:wrap;gap:10px}.inline-setting .setting-label{flex:1;min-width:110px}.inline-setting input,.inline-setting select{font:inherit;color:var(--primary-text-color);background:var(--secondary-background-color);border:1px solid var(--divider-color);border-radius:8px;padding:8px;max-width:100%;box-sizing:border-box}.inline-setting input[type=checkbox]{width:42px;height:24px;accent-color:#79ad51;cursor:pointer}.inline-setting select{max-width:170px}.number-control{display:flex;align-items:center;gap:6px}.number-control input{width:80px}.number-control button{padding:9px;border-radius:8px;background:var(--secondary-background-color)}.info-group{margin-top:20px}.info-group h4{margin:0 0 8px;color:var(--secondary-text-color);font-size:13px}.wide-button ha-icon{margin-right:8px}
