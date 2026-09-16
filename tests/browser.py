@@ -89,6 +89,31 @@ with tempfile.TemporaryDirectory() as temp:
             # The demo is synthetic; screenshots contain no device/user information.
             page.locator('[data-tab="overview"]').click()
             page.locator('gardena-mower-card').screenshot(path=str(target/'overview.png'))
+            # Parked activity can persist through the entire recharge (observed on Minimo).
+            def charging_case(mower='docked', activity='parked', remaining='54.4', expected='charging', garage=True, state='restricted', error='0'):
+                page.evaluate("""c=>{
+                  card.setConfig({entity:'lawn_mower.test',garage:c.garage,entities:{activity:'sensor.activity',state:'sensor.state',RemainingChargingTime:'sensor.remaining',errorCode:'sensor.error'}});
+                  card.hass={states:{'lawn_mower.test':{state:c.mower,attributes:{supported_features:7}},'sensor.activity':{state:c.activity,attributes:{}},'sensor.state':{state:c.state,attributes:{}},'sensor.remaining':{state:c.remaining,attributes:{unit_of_measurement:'min'}},'sensor.error':{state:c.error,attributes:{}}},callService:async()=>{throw new Error('No device commands')}};
+                }""",locals())
+                assert page.evaluate('card.sceneState()')==expected
+                assert page.locator('.status-overlay.bolt').count()==(1 if expected=='charging' else 0)
+                if expected=='charging':
+                    assert page.locator('.badge').inner_text()=='Charging'
+            charging_case()
+            garage_photo=page.locator('.mower-photo').get_attribute('src')
+            charging_case(remaining='0.0',expected='parked')
+            assert page.locator('.mower-photo').get_attribute('src')==garage_photo
+            charging_case(garage=False)
+            dock_photo=page.locator('.mower-photo').get_attribute('src')
+            charging_case(garage=False,remaining='0',expected='parked')
+            assert page.locator('.mower-photo').get_attribute('src')==dock_photo
+            for value in ['unavailable','unknown','','NaN','-1','0']:
+                charging_case(remaining=value,expected='parked')
+            charging_case(activity='charging',remaining='unknown')
+            for mower in ['mowing','returning','paused','error','unavailable']:
+                charging_case(mower=mower,expected=mower)
+            charging_case(state='paused',expected='paused')
+            charging_case(error='15',expected='error')
             # Registry discovery must distinguish the spot switch from its sensor.
             page.evaluate('''()=>{
               const states={'lawn_mower.test':{state:'mowing',attributes:{supported_features:7}},'sensor.spot':{state:'running',attributes:{}},'switch.spot':{state:'on',attributes:{}}};

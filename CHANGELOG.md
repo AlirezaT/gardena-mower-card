@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+- Show the charging animation and badge when a docked mower reports positive remaining charging time, even if its activity stays `parked`.
+- Return to the parked display when remaining charging time reaches zero. Mowing, returning, paused, error and unavailable states retain their priority.
+
 ## 1.0.0
 
 First standalone HACS release, based on the local v13 card.

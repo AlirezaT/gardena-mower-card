@@ -66,6 +66,8 @@ Bundled scene photos show a SILENO Minimo and the garage accessory. Model names 
 | Error | Stationary mower with animated error icon |
 | Unavailable | Muted stationary mower |
 
+Some mower firmware reports `parked` during charging. The card also treats a docked mower with positive `RemainingChargingTime` as charging, then returns to parked when the countdown reaches zero. An explicit `charging` activity remains supported. Battery percentage alone is not used to infer charging.
+
 No GPS location is implied. Photos have softened edges and shadows. Built-in animations respect reduced-motion preferences.
 
 ```yaml

@@ -237,6 +237,11 @@ class GardenaMowerCard extends HTMLElement {
     if (['off','stopped','wait_for_safetypin'].includes(state?.state)) return 'paused';
     if (mower.state === 'returning' || activity?.state === 'going_home') return 'returning';
     if (activity?.state === 'charging') return 'charging';
+    // Some Gardena firmware keeps activity='parked' throughout a recharge.
+    // The charging-time sensor distinguishes that from an idle docked mower.
+    const remaining = this.sensor('RemainingChargingTime','sensor');
+    if (mower.state === 'docked' && known(remaining) &&
+        Number.isFinite(Number(remaining.state)) && Number(remaining.state) > 0) return 'charging';
     if (this.sensor('spotCutting','sensor')?.state === 'running' && mower.state === 'mowing') return 'spot';
     if (mower.state === 'mowing') return 'mowing';
     if (mower.state === 'docked') return 'parked';
@@ -373,7 +378,7 @@ class GardenaMowerCard extends HTMLElement {
     const code = this.sensor('errorCode');
     const hasError = known(code) && Number(code.state) !== 0;
     const level = known(battery) && Number.isFinite(Number(battery.state)) ? Math.max(0,Math.min(100,Number(battery.state))) : null;
-    const status = known(mower) ? this.formatted(known(activity) ? activity : mower) : 'Unavailable';
+    const status = this.sceneState() === 'charging' ? 'Charging' : known(mower) ? this.formatted(known(activity) ? activity : mower) : 'Unavailable';
     const modelName = this.modelName();
     const selectedImage = this.sceneImage();
     const photo = selectedImage !== this.failedImage ? selectedImage : '';

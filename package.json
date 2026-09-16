@@ -1,6 +1,6 @@
 {
   "name": "gardena-mower-card",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Home Assistant dashboard card for Gardena Mower BLE",
   "author": "AlirezaT",
