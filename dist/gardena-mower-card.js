@@ -1,7 +1,7 @@
 /* Gardena Mower Card — dependency-free Home Assistant custom card. */
 (() => {
 const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const VERSION = '1.0.1';
+const VERSION = '1.0.2';
 const assetURL = name => { const url=new URL(name,import.meta.url); url.searchParams.set('v',VERSION); return url.href; };
 const SCENE_CSS = assetURL('scene.css');
 let lottieReady;

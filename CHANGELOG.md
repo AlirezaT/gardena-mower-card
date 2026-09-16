@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+- Replace the cropped animation preview with a full-card GIF showing the header, mower animation, battery, metrics and controls.
+- Includes the parked-while-charging detection fix from 1.0.1.
+
 ## 1.0.1
 
 - Show the charging animation and badge when a docked mower reports positive remaining charging time, even if its activity stays `parked`.

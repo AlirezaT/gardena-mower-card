@@ -6,9 +6,9 @@ A Home Assistant dashboard card for the [Gardena Mower BLE integration](https://
 
 ## Screenshots and animation
 
-Captured from the card with simulated mower data. The GIF demonstrates the status animations; it does not show a real mowing session.
+Captured from the card with simulated mower data. The full-card GIF demonstrates the status animations while keeping the battery, metrics and controls visible; it does not show a real mowing session.
 
-<a href="docs/mower-status.gif"><img src="docs/mower-status.gif" alt="Animated preview of parked, charging, mowing, spot cutting, returning, paused and error states" width="440"></a>
+<a href="docs/mower-card.gif"><img src="docs/mower-card.gif" alt="Animated preview of parked, charging, mowing, spot cutting, returning, paused and error states" width="440"></a>
 
 | Charging | Mowing |
 | --- | --- |
