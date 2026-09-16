@@ -88,8 +88,7 @@ with tempfile.TemporaryDirectory() as temp:
                 assert page.evaluate("()=>{const c=card.shadowRoot.querySelector('ha-card');return c.scrollWidth<=c.clientWidth}")
             # The demo is synthetic; screenshots contain no device/user information.
             page.locator('[data-tab="overview"]').click()
-            (ROOT / 'docs').mkdir(exist_ok=True)
-            page.locator('gardena-mower-card').screenshot(path=str(ROOT/'docs/overview.png'))
+            page.locator('gardena-mower-card').screenshot(path=str(target/'overview.png'))
             # Registry discovery must distinguish the spot switch from its sensor.
             page.evaluate('''()=>{
               const states={'lawn_mower.test':{state:'mowing',attributes:{supported_features:7}},'sensor.spot':{state:'running',attributes:{}},'switch.spot':{state:'on',attributes:{}}};

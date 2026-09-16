@@ -2,7 +2,26 @@
 
 A Home Assistant dashboard card for the [Gardena Mower BLE integration](https://github.com/AlirezaT/Gardena_Mower_BLE), with animated mower status, quick controls, inline settings and grouped diagnostics.
 
-![Mower overview](docs/overview.png)
+<a href="docs/overview.png"><img src="docs/overview.png" alt="Gardena Mower Card overview with garage photo and mower controls" width="360"></a>
+
+## Screenshots and animation
+
+Captured from the card with simulated mower data. The GIF demonstrates the status animations; it does not show a real mowing session.
+
+<a href="docs/mower-status.gif"><img src="docs/mower-status.gif" alt="Animated preview of parked, charging, mowing, spot cutting, returning, paused and error states" width="440"></a>
+
+| Charging | Mowing |
+| --- | --- |
+| [![Charging](docs/charging.png)](docs/charging.png) | [![Mowing](docs/mowing.png)](docs/mowing.png) |
+
+<details>
+<summary>Schedule, inline settings and mower information</summary>
+
+| Schedule | Settings | Info |
+| --- | --- | --- |
+| [![Weekly schedule](docs/schedule.png)](docs/schedule.png) | [![Inline settings and station mowing share](docs/settings.png)](docs/settings.png) | [![Grouped mower information](docs/info.png)](docs/info.png) |
+
+</details>
 
 ## Install with HACS
 
